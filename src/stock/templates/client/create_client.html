@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-fluid">
+    
+    <!-- Basic Validation -->
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>Ajouter Client</h2>
+                </div>
+                <div class="body">
+                    <form id="form_validation" method="POST" action="{% url 'save_client' %}" novalidate>
+                        {% csrf_token %}
+
+                        {% for field in form %}
+                        
+                         <label class="form-label"> {{field.label_tag}}</label>
+                        <div class="form-group form-float">
+                                <div class="form-line">
+                                        {{field}}
+                                 </div>
+                                {% if field.errors %}
+                                <label id="name-error" class="error" for="{{ field.id_for_label }}">{{ field.errors }}</label>
+                                {% endif %}
+                                
+                        </div>
+                        
+                        {% endfor %}
+
+                        <button class="btn btn-primary waves-effect" type="submit">SUBMIT</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    
+
+    
+
+  
+{% endblock content %}

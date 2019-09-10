@@ -1,0 +1,17 @@
+<!-- For Material Design Colors -->
+<div class="modal fade" id="mdModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="defaultModalLabel">Supprimer Entrée</h4>
+            </div>
+            <div class="modal-body">
+                    voulez-vous vraiment supprimer cette Entrée
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a href="{% url 'deleted_entree' fs.pk %}" class="btn btn-danger">Supprimer</a>
+            </div>
+        </div>
+    </div>
+</div>

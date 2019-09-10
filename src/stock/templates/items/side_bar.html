@@ -1,0 +1,127 @@
+{% load static %}
+<aside id="leftsidebar" class="sidebar">
+    <!-- User Info -->
+    <div class="user-info">
+        <div class="image">
+            <img src="{{ profile.image.url }}" width="48" height="48" alt="User" />
+        </div>
+        <div class="info-container">
+            
+            <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ profile.nom }}  {{ profile.prenom }} </div>
+            <div class="email">{{ profile.email }}</div>
+            <div class="btn-group user-helper-dropdown">
+                <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
+                <ul class="dropdown-menu pull-right">
+                   
+                    <li><a href="{% url 'logout' %}"><i class="material-icons">input</i>Sign Out</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- #User Info -->
+    <!-- Menu -->
+    <div class="menu">
+        <ul class="list">
+            <li class="header">MAIN NAVIGATION</li>
+            <li class="{% if current_url == 'home' %} active {% endif %}">
+                <a href="{% url 'home' %}">
+                    <i class="material-icons">home</i>
+                    <span>Accueil</span>
+                </a>
+            </li>
+            <li class="{% if current_url == 'save_produit' or current_url == 'list_produit' %} active {% endif %}">
+                <a href="javascript:void(0);" class="menu-toggle">
+                    <i class="material-icons">playlist_add_check</i>
+                    <span>Produits</span>
+                </a>
+                <ul class="ml-menu">
+                    <li class="{% if current_url == 'save_produit' %} active {% endif %}">
+                        <a  href="{% url 'save_produit' %}">Ajouter Produit</a>
+                    </li>
+                    <li class="{% if current_url == 'list_produit' %} active {% endif %}">
+                        <a  href="{% url 'list_produit' %}">Tout les produits</a>
+                    </li>
+                </ul>
+            </li>
+            <li  class="{% if current_url == 'create_fourniseur' or current_url == 'list_fourniseur' %} active {% endif %}">
+                <a href="javascript:void(0);" class="menu-toggle">
+                    <i class="material-icons">people_outline</i>
+                    <span>Fournisseurs</span>
+                </a>
+                <ul class="ml-menu">
+                    <li class="{% if current_url == 'create_fourniseur' %} active {% endif %}">
+                        <a href="{% url 'create_fourniseur' %}">Ajouter Fournisseur</a>
+                    </li>
+                    <li class="{% if current_url == 'list_fourniseur' %} active {% endif %}">
+                        <a href="{% url 'list_fourniseur' %}">Tout les Fournisseur</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="{% if current_url == 'save_client' or current_url == 'list_client' %} active {% endif %}">
+                <a href="javascript:void(0);" class="menu-toggle">
+                    <i class="material-icons">people_outline</i>
+                    <span>Clients</span>
+                </a>
+                <ul class="ml-menu">
+                    <li class="{% if current_url  == 'save_client' %} active {% endif %}">
+                        <a href="{% url 'save_client' %}">Ajouter Client</a>
+                    </li>
+                    <li class="{% if current_url == 'list_client' %} active {% endif %}">
+                        <a href="{% url 'list_client' %}">Tout les Client</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="{% if current_url == 'list_entree' or current_url == 'retour_entree_list' %} active {% endif %}">
+                <a href="javascript:void(0);" class="menu-toggle">
+                    <i class="material-icons">exit_to_app</i>
+                    <span>Entree</span>
+                </a>
+                <ul class="ml-menu">
+                    <li class="{% if current_url == 'list_entree'  %} active {% endif %}">
+                        <a href="{% url 'list_entree' %}">Tous les entree</a>
+                    </li>
+                    <li class="{% if current_url == 'retour_entree_list' %} active {% endif %}">
+                        <a href="{% url 'retour_entree_list' %}">Tous les retours</a>
+                    </li>
+                   
+                </ul>
+            </li>
+            <li class="{% if current_url == 'list_sortie'  or current_url == 'retour_sortie_list' %} active {% endif %}">
+                <a href="javascript:void(0);" class="menu-toggle">
+                    <i class="material-icons">reply_all</i>
+                    <span>Sortie</span>
+                </a>
+                <ul class="ml-menu">
+                    <li class="{% if current_url == 'list_sortie' %} active {% endif %}">
+                        <a href="{% url 'list_sortie' %}">Tous les Sortie</a>
+                    </li>
+                    <li class="{% if current_url == 'retour_sortie_list' %} active {% endif %}">
+                        <a href="{% url 'retour_sortie_list' %}">Tout les retours</a>
+                    </li>
+                </ul>
+            </li>
+            
+            <li class="{% if current_url == 'list_marque' %} active {% endif %}">
+                <a href="{% url 'list_marque' %}">
+                    <i class="material-icons">collections_bookmark</i>
+                    <span>Marque</span>
+                </a>
+            </li>
+            <li class="{% if current_url == 'list_category' %} active {% endif %}">
+                <a href="{% url 'list_category' %}">
+                    <i class="material-icons">extension</i>
+                    <span>Categorie</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <!-- #Menu -->
+    <!-- Footer -->
+    <div class="legal">
+        <div class="version">
+            <b>Version: </b> 0.1
+        </div>
+    </div>
+    <!-- #Footer -->
+</aside>

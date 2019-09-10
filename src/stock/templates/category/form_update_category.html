@@ -1,0 +1,31 @@
+{% extends 'category/list_category.html' %}
+
+{% block content_create_update_category %}
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+                <div class="body">
+                    <form id="form_validation" method="POST" action="{% url 'detail_category' instance.pk %}" novalidate>
+                        {% csrf_token %}
+
+                        {% for field in form %}
+                        
+                         <label class="form-label"> {{field.label_tag}}</label>
+                        <div class="form-group form-float">
+                                <div class="form-line">
+                                       
+                                        {{field}}
+                                        
+                                 </div>
+                                {% if field.errors %}
+                                <label id="name-error" class="error" for="{{ field.id_for_label }}">{{ field.errors }}</label>
+                                {% endif %}
+                                
+                        </div>
+                        {% endfor %}
+                        <button class="btn btn-primary waves-effect" type="submit">SUBMIT</button>
+                    </form>
+                </div>
+            </div>
+</div>
+
+{% endblock content_create_update_category %}
