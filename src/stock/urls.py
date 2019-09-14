@@ -1,6 +1,9 @@
 from django.urls import path
 from .views import *
+
+
 urlpatterns = [
+
     path('', home, name="home"),
     path('fourniseur', fourniseur_list , name="list_fourniseur"),
     path('fourniseur/create', create_fourniseur , name="create_fourniseur"),
@@ -23,9 +26,9 @@ urlpatterns = [
     path('client', list_client , name="list_client"), 
     path('client/create', save_client , name="save_client"), 
     path('client/<int:pk>/update', update_client , name="update_client"), 
-    path('retour/sortie/<int:pk>/create', save_retour_sortie , name="save_retour_sortie"), 
-    path('retour/sortie', retour_sortie_list , name="retour_sortie_list"), 
-    path('retour/entree', retour_entree_list , name="retour_entree_list"), 
-    path('retour/entree/<int:pk>/create', save_retour_entree , name="save_retour_entree"), 
+    path('retour/sortie/<int:pk_sortie>/create', save_avoir_entree , name="save_avoir_entree"), 
+    path('retour/entree', list_avoir_sortie , name="list_avoir_sortie_url"), 
+    path('retour/sortie', list_avoir_entree , name="list_avoir_entree_url"), 
+    path('retour/entree/<int:pk_entree>/create', save_avoir_sortie , name="save_avoir_sortie"), 
 
 ]

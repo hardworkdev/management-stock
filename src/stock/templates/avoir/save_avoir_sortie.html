@@ -22,7 +22,7 @@
                             </div>
                 </div>
                 <div class="body">
-                    <form id="form_validation" method="POST" action="{% url 'save_retour_sortie' sortie_pk %}" novalidate>
+                    <form id="form_validation" method="POST" action="{% url 'save_avoir_sortie' entree_pk %}" novalidate>
                         {% csrf_token %}
 
                         {% for field in form %}

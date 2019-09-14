@@ -71,7 +71,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="{% if current_url == 'list_entree' or current_url == 'retour_entree_list' %} active {% endif %}">
+            <li class="{% if current_url == 'list_entree' or current_url == 'list_avoir_sortie_url' %} active {% endif %}">
                 <a href="javascript:void(0);" class="menu-toggle">
                     <i class="material-icons">exit_to_app</i>
                     <span>Entree</span>
@@ -80,13 +80,13 @@
                     <li class="{% if current_url == 'list_entree'  %} active {% endif %}">
                         <a href="{% url 'list_entree' %}">Tous les entree</a>
                     </li>
-                    <li class="{% if current_url == 'retour_entree_list' %} active {% endif %}">
-                        <a href="{% url 'retour_entree_list' %}">Tous les retours</a>
+                    <li class="{% if current_url == 'list_avoir_sortie_url' %} active {% endif %}">
+                        <a href="{% url 'list_avoir_sortie_url' %}">Tous les retours</a>
                     </li>
                    
                 </ul>
             </li>
-            <li class="{% if current_url == 'list_sortie'  or current_url == 'retour_sortie_list' %} active {% endif %}">
+            <li class="{% if current_url == 'list_sortie'  or current_url == 'list_avoir_entree_url' %} active {% endif %}">
                 <a href="javascript:void(0);" class="menu-toggle">
                     <i class="material-icons">reply_all</i>
                     <span>Sortie</span>
@@ -95,8 +95,8 @@
                     <li class="{% if current_url == 'list_sortie' %} active {% endif %}">
                         <a href="{% url 'list_sortie' %}">Tous les Sortie</a>
                     </li>
-                    <li class="{% if current_url == 'retour_sortie_list' %} active {% endif %}">
-                        <a href="{% url 'retour_sortie_list' %}">Tout les retours</a>
+                    <li class="{% if current_url == 'list_avoir_entree_url' %} active {% endif %}">
+                        <a href="{% url 'list_avoir_entree_url' %}">Tout les retours</a>
                     </li>
                 </ul>
             </li>

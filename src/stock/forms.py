@@ -24,6 +24,10 @@ class ProduitForm(ModelForm):
             self.fields[field].widget.attrs.update({
                 'class': 'form-control'
             })
+        self.fields['category'].widget.attrs['class'] = 'form-control show-tick'
+        self.fields['category'].widget.attrs['data-live-search'] = 'true'
+        self.fields['marque'].widget.attrs['class'] = 'form-control show-tick'
+        self.fields['marque'].widget.attrs['data-live-search'] = 'true'
 
     class Meta:
         model = Produit
@@ -37,10 +41,13 @@ class EntreeForm(ModelForm):
             self.fields[field].widget.attrs.update({
                 'class': 'form-control'
             })
+        self.fields['fourniseur'].widget.attrs['class'] = 'form-control show-tick'
+        self.fields['fourniseur'].widget.attrs['data-live-search'] = 'true'
+        
 
     class Meta:
         model = Entree
-        exclude = ('produit','deleted','sortie_avoir')
+        exclude = ('produit','deleted','sortie_avoir','created_at')
 
 
 class SortieForm(ModelForm):
@@ -51,10 +58,12 @@ class SortieForm(ModelForm):
             self.fields[field].widget.attrs.update({
                 'class': 'form-control'
             })
+        self.fields['client'].widget.attrs['class'] = 'form-control show-tick'
+        self.fields['client'].widget.attrs['data-live-search'] = 'true'
 
     class Meta:
         model = Sortie
-        exclude = ('produit','deleted','entree_avoir')
+        exclude = ('produit','deleted','entree_avoir','date_sortie')
 
 
 
@@ -130,8 +139,8 @@ class EntreeAvoirForm(ModelForm):
             })
 
     class Meta:
-        model = Entree
-        exclude = ('produit','deleted','sortie_avoir', 'fourniseur')
+        model = AvoirEntree
+        exclude = ('sortie','deleted',)
 
     
 
@@ -145,5 +154,5 @@ class SortieAvoirForm(ModelForm):
             })
 
     class Meta:
-        model = Sortie
-        exclude = ('produit','deleted','client', 'entree_avoir' )
+        model = AvoirSortie
+        exclude = ('entree','deleted',)

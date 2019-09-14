@@ -9,6 +9,12 @@ from django.contrib.auth.decorators import login_required
 import datetime
 from .context_processors import global_vars
 # Create your views here.
+
+def error_404_view(request, exception):
+    context = {"name": "ThePythonDjango.com"}
+    return render(request,'pages/error_404.html', context)
+
+
 @login_required
 def home(request):
     len_entree = len(Entree.objects.filter(deleted=False))
@@ -170,15 +176,16 @@ from django.utils.dateparse import parse_date
 @login_required
 def list_entree(request):
     
-    fourniseur = request.GET.get('fournisseur','')
-    date = request.GET.get('date','')
+    fourniseur = request.POST.get('fournisseur','')
+    fourniseur = int(fourniseur) if fourniseur else ''
+    date = request.POST.get('date','')
     date= datetime.datetime.strptime(date, "%Y-%m-%d").date() if date else ''
     filter_params = {'deleted':False,}
     set_if_not_none(filter_params, 'fourniseur', fourniseur)
     set_if_not_none(filter_params, 'created_at__date', date)
     entrees = Entree.objects.filter(**filter_params).filter(sortie_avoir=None)
     fourniseur_list = Fourniseur.objects.all()
-    context = {"entrees_list":entrees, "fourniseur_list":fourniseur_list}
+    context = {"entrees_list":entrees, "fourniseur_list":fourniseur_list,"fourniseur":fourniseur,"date":str(date)}
     return render(request, 'entree/list_entree.html', context)
 
 @login_required
@@ -214,15 +221,16 @@ def deleted_sortie(request, pk):
 
 @login_required
 def list_sortie(request):
-    date = request.GET.get('date','')
+    date = request.POST.get('date','')
     date= datetime.datetime.strptime(date, "%Y-%m-%d").date() if date else ''
-    client = request.GET.get('client','')
+    client = request.POST.get('client','')
+    client = int(client) if client else '' 
     filter_params = {"deleted":False}
     set_if_not_none(filter_params, 'date_sortie', date)
     set_if_not_none(filter_params, 'client', client)
     sorties = Sortie.objects.filter(**filter_params) 
     list_client = Client.objects.all()
-    context = {"sortie_list":sorties, "list_client":list_client}
+    context = {"sortie_list":sorties, "list_client":list_client, "client":client, "date":str(date)}
     return render(request, 'sortie/list_sortie.html', context)
 
 @login_required
@@ -347,85 +355,92 @@ def update_client(request, pk):
     return render(request, 'client/update_client.html', context)
 
 
-def retour_sortie_list(request):
-    client = request.GET.get('client','')
-    date = request.GET.get('date','')
-    date= datetime.datetime.strptime(date, "%Y-%m-%d").date() if date else ''
+
+
+def list_avoir_entree(request):
+    client = request.POST.get('client','')
+    client = int(client) if client else ''
+    date = request.POST.get('date','')
+    date = datetime.datetime.strptime(date, "%Y-%m-%d").date() if date else ''
     filter_params = {'deleted':False}
-    set_if_not_none(filter_params, 'sortie_avoir__client__pk', client)
+    set_if_not_none(filter_params, 'sortie__client__pk', client)
     set_if_not_none(filter_params, 'created_at__date', date)
     client_list = Client.objects.all()
-    entrees_avoir_list = Entree.objects.filter(**filter_params).exclude(sortie_avoir=None)
-    context = {"entrees_avoir_list":entrees_avoir_list, "client_list":client_list}
+    avoirs = AvoirEntree.objects.filter(**filter_params)
+    context = {"client_list":client_list,"avoirs":avoirs, "client":client ,"date":date}
+    return render(request, "avoir/list_avoir_entree.html",context)
 
-    return render(request, 'entree/list_avoir_entree.html', context)
 
-def save_retour_sortie(request, pk): # Retour produit
+def save_avoir_entree(request, pk_sortie):
     context = {}
     form = EntreeAvoirForm()
-    sortie = get_object_or_404(Sortie, pk=pk)
-    if request.method == "POST":
+    sortie = get_object_or_404(Sortie, pk=pk_sortie)
+    if request.POST:
+        print("i am here now ___________________")
+
         form = EntreeAvoirForm(request.POST or None)
-        avoirs = Entree.objects.filter(deleted=False,sortie_avoir=sortie).exclude(sortie_avoir=None)
-        total_avoir_entree = sum([avoir.qte_entree for avoir in avoirs]) 
-        
-        if form.is_valid() :
-            entree = form.save(commit=False)
-            if total_avoir_entree + entree.qte_entree <= sortie.qte_sortie:
-                entree.produit = sortie.produit
-                entree.sortie_avoir = sortie
-                entree.save()
+        avoirs = AvoirEntree.objects.filter(sortie=sortie)
+        total_avoir_entree = sum([avoir.qte_entree for avoir in avoirs])
+        if form.is_valid():
+            avoir_entree = form.save(commit=False)
+            if total_avoir_entree + avoir_entree.qte_entree <= sortie.qte_sortie:
+                avoir_entree.sortie = sortie
+                avoir_entree.save()
                 calcule_stock(sortie.produit)
-                return redirect(reverse('retour_sortie_list'))
+                return redirect(reverse('list_avoir_entree_url'))
             else: # for error quantite avoir
                 context["form"] = form
                 context["sortie_pk"] = sortie.pk
                 context["smg_qte_avoir"] = "Error Quantite"
-                return render(request, 'entree/save_avoir_entree.html',context)
-
-               
-        
-
+                return render(request, 'avoir/save_avoir_entree.html',context)
+    
     context["form"] = form
     context["sortie_pk"] = sortie.pk
-    return render(request, 'entree/save_avoir_entree.html',context)
+    return render(request, 'avoir/save_avoir_entree.html',context)
 
-def retour_entree_list(request):
-    client = request.GET.get('fourniseur','')
-    date = request.GET.get('date','')
+
+
+
+
+def list_avoir_sortie(request):
+    fourniseur = request.POST.get('fourniseur','')
+    fourniseur = int(fourniseur) if fourniseur else ''
+    date = request.POST.get('date','')
     date = datetime.datetime.strptime(date, "%Y-%m-%d").date() if date else ''
     filter_params = {'deleted':False}
-    set_if_not_none(filter_params, 'entree_avoir__fourniseur__pk', client)
+    set_if_not_none(filter_params, 'entree__fourniseur__pk', fourniseur)
     set_if_not_none(filter_params, 'created_at__date', date)
     fourniseur_list = Fourniseur.objects.all()
-    entrees_avoir_list = Sortie.objects.filter(**filter_params).exclude(entree_avoir=None)
-    context = {"fourniseur_list":fourniseur_list,"entrees_avoir_list":entrees_avoir_list}
-    return render(request, "sortie/list_avoir_sortie.html",context)
+    avoirs = AvoirSortie.objects.filter(**filter_params)
+    context = {"fourniseur_list":fourniseur_list,"avoirs":avoirs,"fourniseur":fourniseur,"date":str(date)}
+    return render(request, "avoir/list_avoir_sortie.html",context)
 
 
-def save_retour_entree(request, pk):
+def save_avoir_sortie(request, pk_entree):
     context = {}
     form = SortieAvoirForm()
-    entree = get_object_or_404(Entree, pk=pk)
-    if request.method == "POST":
+    entree = get_object_or_404(Entree, pk=pk_entree)
+    if request.POST:
+        print("i am here now ___________________")
+
         form = SortieAvoirForm(request.POST or None)
-        avoirs = Sortie.objects.filter(deleted=False,entree_avoir=entree).exclude(entree_avoir=None)
-        total_avoir_sortie = sum([avoir.qte_sortie for avoir in avoirs]) 
-        
-        if form.is_valid() :
-            sortie = form.save(commit=False)
-            if total_avoir_sortie + sortie.qte_sortie <= entree.qte_entree:
-                sortie.produit = entree.produit
-                sortie.entree_avoir = entree
-                sortie.save()
-                calcule_stock(sortie.produit)
-                return redirect(reverse('retour_entree_list'))
+        avoirs = AvoirSortie.objects.filter(entree=entree)
+        total_avoir_sortie = sum([avoir.qte_sortie for avoir in avoirs])
+        if form.is_valid():
+            avoir_sortie = form.save(commit=False)
+            if total_avoir_sortie + avoir_sortie.qte_sortie <= entree.qte_entree:
+                avoir_sortie.entree = entree
+                avoir_sortie.save()
+                calcule_stock(entree.produit)
+                return redirect(reverse('list_avoir_sortie_url'))
             else: # for error quantite avoir
                 context["form"] = form
                 context["entree_pk"] = entree.pk
                 context["smg_qte_avoir"] = "Error Quantite"
-                return render(request, 'entree/save_avoir_sortie.html',context)
+                return render(request, 'avoir/save_avoir_sortie.html',context)
     
     context["form"] = form
     context["entree_pk"] = entree.pk
-    return render(request, 'entree/save_avoir_sortie.html',context)
+    return render(request, 'avoir/save_avoir_sortie.html',context)
+
+

@@ -15,13 +15,13 @@
                             </div>
                             <div class="col-md-9">
                                 <div class="row clearfix ">
-                                        <form action="{% url 'list_sortie' %}" method="get" >
+                                        <form action="{% url 'list_sortie' %}" method="POST" >
                                                 <div class="col-md-6">
-                                                
+                                                {% csrf_token %}
                                                         <select class="form-control show-tick" name="client" data-live-search="true">
                                                             <option value="">-- Please select Client--</option>
                                                                 {% for fr in list_client %}
-                                                                <option value="{{ fr.id }}">{{ fr.nom }} {{ fr.prenom }} {{ fr.tele }}</option>
+                                                                <option {% if fr.pk == client %} selected {% endif %} value="{{ fr.id }}">{{ fr.nom }} {{ fr.prenom }} {{ fr.tele }}</option>
                                                                 {% endfor %}
                                                         </select>
                                                     </div>
@@ -29,7 +29,7 @@
                                                     <div class="form-group">
                                                             <jamming-date>
                                                         <div class="form-line" id="bs_datepicker_container">
-                                                            <input type="date" class="form-control" name="date" placeholder="Please choose a date...">
+                                                            <input type="date" class="form-control" value="{{date}}" name="date" placeholder="Please choose a date...">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -73,13 +73,13 @@
                                 {% for fs in sortie_list %}
                                 <tr>
                                     <td>{{ fs.pk }}</td>
-                                    <td>{{ fs.date_sortie }}</td>
+                                    <td>{{ fs.date_sortie|date:'Y-m-d H:i' }}</td>
                                     <td>{{fs.qte_sortie}}</td>
                                     <td>{{fs.produit.ref}}</td>
                                     <td>{{fs.produit.marque.nom}}</td>
                                     <td>{{fs.produit.category.nom}}</td>
                                     <td><a href="{% url 'update_sortie' fs.pk %}" class="btn btn-success btn-xs">Modifier</a>
-                                        <a href="{% url 'save_retour_sortie' fs.pk %}" class="btn btn-primary btn-xs">Avoir</a>
+                                        <a href="{% url 'save_avoir_entree' fs.pk %}" class="btn btn-primary btn-xs">Avoir</a>
                                     <button type="button" data-color="red" data-toggle="modal" onclick="load_modal()" class="btn bg-red waves-effect btn-xs">Supprimer</button>
                                     </td>
                                 </tr>

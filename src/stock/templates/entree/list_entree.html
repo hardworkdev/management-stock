@@ -11,17 +11,17 @@
                             <div class="col-md-3">
                                     <h2>
                                             Tous les Entrees
-                                        </h2>
+                                    </h2>
                             </div>
                             <div class="col-md-8">
                                 <div class="row clearfix ">
-                                        <form action="{% url 'list_entree' %}" method="get" >
+                                        <form action="{% url 'list_entree' %}" method="POST" >
                                             <div class="col-md-6">
-                                                
+                                                {% csrf_token %}
                                                 <select class="form-control show-tick" name="fournisseur" data-live-search="true">
                                                     <option value="">-- Please select fournisseur--</option>
                                                         {% for fr in fourniseur_list %}
-                                                        <option value="{{ fr.id }}">{{ fr.nom }} {{ fr.prenom }} {{ fr.tele }}</option>
+                                                        <option {% if fr.pk == fourniseur %} selected {% endif %} value="{{ fr.id }}">{{ fr.nom }} {{ fr.prenom }} {{ fr.tele }}</option>
                                                         {% endfor %}
                                                 </select>
                                             </div>
@@ -30,7 +30,7 @@
                                                     <div class="form-group">
                                                             <jamming-date>
                                                         <div class="form-line" id="bs_datepicker_container">
-                                                            <input type="date" class="form-control" name="date" placeholder="Please choose a date...">
+                                                            <input type="date" class="form-control" value="{{ date }}" name="date" placeholder="Please choose a date...">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -55,6 +55,7 @@
                                     <th>ID</th>
                                     <th>Date</th>
                                     <th>Quantiter</th>
+                                    <th>Fournisseur</th>
                                     <th>Ref Produit</th>
                                     <th>Marque</th>
                                     <th>Categorie</th>
@@ -66,6 +67,7 @@
                                     <th>ID</th>
                                     <th>Date</th>
                                     <th>Quantiter</th>
+                                    <th>Fourniseeur</th>
                                     <th>Ref Produit</th>
                                     <th>Marque</th>
                                     <th>Categorie</th>
@@ -76,14 +78,15 @@
                                 {% for fs in entrees_list %}
                                 <tr>
                                     <td>{{ fs.pk }}</td>
-                                    <td>{{ fs.created_at }}</td>
+                                    <td>{{ fs.created_at|date:'Y-m-d H:i' }}</td>
                                     <td>{{fs.qte_entree}}</td>
+                                    <td>{{fs.fourniseur}}</td>
                                     <td>{{fs.produit.ref}}</td>
                                     <td>{{fs.produit.marque.nom}}</td>
                                     <td>{{fs.produit.category.nom}}</td>
                                     <td>
                                             <a href="{% url 'update_entree' fs.pk %}" class="btn btn-success btn-xs">Modifier</a>
-                                            <a href="{% url 'save_retour_entree' fs.pk %}" class="btn btn-primary btn-xs">Avoir</a>
+                                            <a href="{% url 'save_avoir_sortie' fs.pk %}" class="btn btn-primary btn-xs">Avoir</a>
                                         <button type="button" data-color="red" data-toggle="modal" onclick="load_modal()" class="btn bg-red waves-effect btn-xs">Supprimer</button>
                                     </td>
                                 </tr>
