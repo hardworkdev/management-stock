@@ -405,11 +405,18 @@ def save_avoir_entree(request, pk_sortie):
 def list_avoir_sortie(request):
     fourniseur = request.POST.get('fourniseur','')
     fourniseur = int(fourniseur) if fourniseur else ''
+
+    entree = request.POST.get('entree','')
+    entree = int(entree) if entree else ''  
+    print(entree,"what is this maan ________________________________")
+
+
     date = request.POST.get('date','')
     date = datetime.datetime.strptime(date, "%Y-%m-%d").date() if date else ''
     filter_params = {'deleted':False}
     set_if_not_none(filter_params, 'entree__fourniseur__pk', fourniseur)
     set_if_not_none(filter_params, 'created_at__date', date)
+    set_if_not_none(filter_params, 'entree__pk', entree)
     fourniseur_list = Fourniseur.objects.all()
     avoirs = AvoirSortie.objects.filter(**filter_params)
     context = {"fourniseur_list":fourniseur_list,"avoirs":avoirs,"fourniseur":fourniseur,"date":str(date)}

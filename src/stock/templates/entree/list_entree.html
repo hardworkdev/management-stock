@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static stock_extra %}
 {% block content %}
 
 <div class="container-fluid">
@@ -81,7 +82,13 @@
                                 <tr>
                                     <td>{{ fs.pk }}</td>
                                     <td>{{ fs.created_at|date:'Y-m-d H:i' }}</td>
-                                    <td>{{fs.qte_entree}}</td>
+                                    <td>
+                                        <form action="{% url 'list_avoir_sortie_url' %}" method='POST'> 
+                                            {% csrf_token %}
+                                        {% get_total_avoir_entree_by_product fs as get_total_avoir %}
+                                        {{get_total_avoir}} 
+                                        </form>
+                                    </td>
                                     <td>{{fs.fourniseur}}</td>
                                     <td>{{fs.prix_achat}}</td>
                                     <td>{{fs.produit.ref}}</td>
