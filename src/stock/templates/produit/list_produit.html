@@ -29,11 +29,10 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Ref</th>
-                                    <th>designation</th>
-                                    <th>Prix</th>
-                                    <th>Quantiter</th>
+                                    <th>Désignation</th>
+                                    <th>Quantité</th>
                                     <th>Marque</th>
-                                    <th>Categorie</th>
+                                    <th>Catégorie</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -41,11 +40,10 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Ref</th>
-                                    <th>designation</th>
-                                    <th>Prix</th>
-                                    <th>Quantiter</th>
+                                    <th>Désignation</th>
+                                    <th>Quantité</th>
                                     <th>Marque</th>
-                                    <th>Categorie</th>
+                                    <th>Catégorie</th>
                                     <th>Action</th>
                                 </tr>
                             </tfoot>
@@ -55,7 +53,6 @@
                                     <td>{{ fs.pk }}</td>
                                     <td>{{ fs.ref }}</td>
                                     <td>{{fs.designation}}</td>
-                                    <td>{{fs.prix_achat}}</td>
                                     <td {% if fs.qte_stock <= fs.qte_stock_min %} style="background-color: #fb483a;color: aliceblue" {% else %}  style="background-color: #398439;color: aliceblue" {% endif %}>{{fs.qte_stock}}</td>
                                     <td>{{fs.marque.nom}}</td>
                                     <td>{{fs.category.nom}}</td>

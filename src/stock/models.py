@@ -17,7 +17,7 @@ class Category(models.Model):
 
 class Fourniseur(models.Model):
     nom = models.CharField(max_length=20, verbose_name="Nom")
-    prenom = models.CharField(max_length=20)
+    prenom = models.CharField(max_length=20, verbose_name="Prénom")
     adresse = models.CharField(max_length=50)
     tele = models.CharField(max_length=10, unique=True)
     fix = models.CharField(max_length=10, null=True, blank=True)
@@ -29,12 +29,11 @@ class Fourniseur(models.Model):
 
 class Produit(models.Model):
     ref = models.CharField(max_length=100)
-    designation = models.CharField(max_length=100)
-    prix_achat = models.FloatField(max_length=100)
+    designation = models.CharField(max_length=100 , verbose_name="Désignation")
     qte_stock = models.PositiveIntegerField(default=0)
     qte_stock_min = models.PositiveIntegerField(default=0)
     marque = models.ForeignKey(Marque, on_delete=models.SET_NULL, null=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL , null=True )
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL , null=True , verbose_name="Catégorie")
     date_create = models.DateTimeField(default=datetime.datetime.now)
 
     def __str__(self):
@@ -43,13 +42,14 @@ class Produit(models.Model):
 
 
 class Entree(models.Model):
-
-    created_at = models.DateTimeField(default=datetime.datetime.now)
+    prix_achat = models.FloatField( verbose_name="Prix D'achat", default=0)
     qte_entree = models.PositiveIntegerField(default=0)
     produit = models.ForeignKey(Produit, on_delete=models.SET_NULL, null=True)
     fourniseur = models.ForeignKey(Fourniseur, on_delete=models.SET_NULL, null=True)
     sortie_avoir = models.ForeignKey('Sortie', on_delete=models.SET_NULL, null=True)
     deleted = models.BooleanField(default=False)
+    created_at = models.DateTimeField(default=datetime.datetime.now)
+
 
     def __str__(self):
         return "ID : "+ str(self.pk)
@@ -86,7 +86,7 @@ class Profile(models.Model):
     
 class Client(models.Model):
     nom = models.CharField(max_length=20, verbose_name="Nom")
-    prenom = models.CharField(max_length=20)
+    prenom = models.CharField(max_length=20, verbose_name="Prénom")
     tele = models.CharField(max_length=10, unique=True)
     email = models.EmailField(null=True, blank=True)
     created_at = models.DateTimeField(default=datetime.datetime.now(), null=True, blank=True)

@@ -12,7 +12,6 @@
             <div class="btn-group user-helper-dropdown">
                 <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                 <ul class="dropdown-menu pull-right">
-                   
                     <li><a href="{% url 'logout' %}"><i class="material-icons">input</i>Sign Out</a></li>
                 </ul>
             </div>
@@ -53,7 +52,7 @@
                         <a href="{% url 'create_fourniseur' %}">Ajouter Fournisseur</a>
                     </li>
                     <li class="{% if current_url == 'list_fourniseur' %} active {% endif %}">
-                        <a href="{% url 'list_fourniseur' %}">Tout les Fournisseur</a>
+                        <a href="{% url 'list_fourniseur' %}">Tout les Fournisseurs</a>
                     </li>
                 </ul>
             </li>
@@ -67,7 +66,7 @@
                         <a href="{% url 'save_client' %}">Ajouter Client</a>
                     </li>
                     <li class="{% if current_url == 'list_client' %} active {% endif %}">
-                        <a href="{% url 'list_client' %}">Tout les Client</a>
+                        <a href="{% url 'list_client' %}">Tout les Clients</a>
                     </li>
                 </ul>
             </li>
@@ -78,10 +77,10 @@
                 </a>
                 <ul class="ml-menu">
                     <li class="{% if current_url == 'list_entree'  %} active {% endif %}">
-                        <a href="{% url 'list_entree' %}">Tous les entree</a>
+                        <a href="{% url 'list_entree' %}">Tous les entrees</a>
                     </li>
                     <li class="{% if current_url == 'list_avoir_sortie_url' %} active {% endif %}">
-                        <a href="{% url 'list_avoir_sortie_url' %}">Tous les retours</a>
+                        <a href="{% url 'list_avoir_sortie_url' %}">Avoir Fournisseur</a>
                     </li>
                    
                 </ul>
@@ -93,10 +92,10 @@
                 </a>
                 <ul class="ml-menu">
                     <li class="{% if current_url == 'list_sortie' %} active {% endif %}">
-                        <a href="{% url 'list_sortie' %}">Tous les Sortie</a>
+                        <a href="{% url 'list_sortie' %}">Tous les Sorties</a>
                     </li>
                     <li class="{% if current_url == 'list_avoir_entree_url' %} active {% endif %}">
-                        <a href="{% url 'list_avoir_entree_url' %}">Tout les retours</a>
+                        <a href="{% url 'list_avoir_entree_url' %}">Avoir Entrée</a>
                     </li>
                 </ul>
             </li>
