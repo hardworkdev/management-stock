@@ -35,6 +35,9 @@ class ProduitForm(ModelForm):
 
 class EntreeForm(ModelForm):
 
+    prix_achat = forms.FloatField(min_value=0.0)
+
+
     def __init__(self, *args, **kwargs):
         super(EntreeForm, self).__init__(*args, **kwargs)
         for field in iter(self.fields):
@@ -43,6 +46,7 @@ class EntreeForm(ModelForm):
             })
         self.fields['fourniseur'].widget.attrs['class'] = 'form-control show-tick'
         self.fields['fourniseur'].widget.attrs['data-live-search'] = 'true'
+    
         
 
     class Meta:
