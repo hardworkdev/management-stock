@@ -29,20 +29,21 @@
 <body class="login-page">
     <div class="login-box">
         <div class="logo">
-            <a href="javascript:void(0);">Admin<b>BSB</b></a>
-            <small>Admin BootStrap Based - Material Design</small>
+            <a href="javascript:void(0);">Admin</a>
+            <small>ABRAJ DISRIBUTION</small>
         </div>
         <div class="card">
             <div class="body">
                 {% if form.errors %}
-                <p>There's something wrong with what you entered!</p>
+                <p style="color:red">There's something wrong with what you entered!</p>
                 {% endif  %}
                 {% if next %}
-                <p>Hey, you can't access that page.</p>
+                <p style="color:red">vous ne pouvez pas accéder à cette page.</p>
                 {% endif %}
                 <form id="sign_in" action="{% url 'login' %}" method="POST">
                     {% csrf_token %}
-                    <div class="msg">Sign in to start your session</div>
+                    <div class="msg">
+                            Connectez-vous pour commencer votre session</div>
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>

@@ -78,9 +78,10 @@
                                     <td>{{fs.produit.ref}}</td>
                                     <td>{{fs.produit.marque.nom}}</td>
                                     <td>{{fs.produit.category.nom}}</td>
-                                    <td><a href="{% url 'update_sortie' fs.pk %}" class="btn btn-success btn-xs">Modifier</a>
+                                    <td>
+                                        <!-- <a href="{% url 'update_sortie' fs.pk %}" class="btn btn-success btn-xs">Modifier</a> -->
                                         <a href="{% url 'save_avoir_entree' fs.pk %}" class="btn btn-primary btn-xs">Avoir</a>
-                                    <button type="button" data-color="red" data-toggle="modal" onclick="load_modal()" class="btn bg-red waves-effect btn-xs">Supprimer</button>
+                                    <!-- <button type="button" data-color="red" data-toggle="modal" onclick="load_modal()" class="btn bg-red waves-effect btn-xs">Supprimer</button> -->
                                     </td>
                                 </tr>
                                 {% include 'sortie/modal_supprimer.html' %}

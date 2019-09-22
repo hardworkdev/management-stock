@@ -35,7 +35,7 @@ class ProduitForm(ModelForm):
 
 class EntreeForm(ModelForm):
 
-    prix_achat = forms.FloatField(min_value=0.0)
+    prix_achat = forms.FloatField(min_value=0.0, label="Prix D'achat")
 
 
     def __init__(self, *args, **kwargs):

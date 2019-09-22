@@ -77,9 +77,9 @@
                                     <td>{{ fs.created_at|date:'Y-m-d H:i' }}</td>
                                     <td>{{fs.qte_entree}}</td>
                                     <td>{{fs.sortie.client}}</td>
-                                    <td>{{fs.sortie.produit.ref}}</td>
-                                    <td>{{fs.sortie.produit.marque.nom}}</td>
-                                    <td>{{fs.sortie.produit.category.nom}}</td>
+                                    <td> {% if fs.sortie %} {{fs.sortie.produit.ref}} {% else %} cette entrée est supprimée  {% endif %} </td>
+                                    <td> {% if fs.sortie %} {{fs.sortie.produit.marque}} {% else %} cette entrée est supprimée  {% endif %}   </td>
+                                    <td> {% if fs.sortie.produit.category %} {{fs.sortie.produit.category}} {% else %} cette entrée est supprimée  {% endif %}</td>
                                     
                                 </tr>
                                 {% endfor %}

@@ -194,10 +194,12 @@ def update_entree(request, pk):
     instance = get_object_or_404(Entree, pk=pk)
     form = EntreeForm(instance=instance)
     if request.POST:
-        form = EntreeForm(request.POST, instance=instance)
-        form.save()
-        calcule_stock(instance.produit)
-        return redirect(reverse("list_entree"))
+        form = EntreeForm(request.POST ,instance=instance)
+        if form.is_valid():
+            form = EntreeForm(request.POST, instance=instance)
+            form.save()
+            calcule_stock(instance.produit)
+            return redirect(reverse("list_entree"))
     context = {'form':form, "instance":instance}
     return render(request, 'entree/update_entree.html', context)
 
@@ -207,6 +209,10 @@ def deleted_entree(request, pk):
     instance = get_object_or_404(Entree,pk=pk)
     instance.deleted = True
     instance.save()
+    avoir_sorties = AvoirSortie.objects.filter(entree=instance)
+    for avoir in avoir_sorties:
+        avoir.entree= None
+        avoir.save()
     calcule_stock(instance.produit)
     return redirect(reverse("list_entree"))
 

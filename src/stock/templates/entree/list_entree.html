@@ -55,9 +55,9 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Date</th>
-                                    <th>Quantiter</th>
+                                    <th>Quantité</th>
                                     <th>Fournisseur</th>
-                                    <th>Prix</th>
+                                    <th>Prix d'achat</th>
                                     <th>Ref Produit</th>
                                     <th>Marque</th>
                                     <th>Categorie</th>
@@ -68,9 +68,9 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Date</th>
-                                    <th>Quantiter</th>
-                                    <th>Fourniseeur</th>
-                                    <th>Prix</th>
+                                    <th>Quantité</th>
+                                    <th>Fournisseur</th>
+                                    <th>Prix d'achat</th>
                                     <th>Ref Produit</th>
                                     <th>Marque</th>
                                     <th>Categorie</th>
@@ -95,9 +95,9 @@
                                     <td>{{fs.produit.marque.nom}}</td>
                                     <td>{{fs.produit.category.nom}}</td>
                                     <td>
-                                            <a href="{% url 'update_entree' fs.pk %}" class="btn btn-success btn-xs">Modifier</a>
+                                            <!-- <a href="{% url 'update_entree' fs.pk %}" class="btn btn-success btn-xs">Modifier</a> -->
                                             <a href="{% url 'save_avoir_sortie' fs.pk %}" class="btn btn-primary btn-xs">Avoir</a>
-                                        <button type="button" data-color="red" data-toggle="modal" onclick="load_modal()" class="btn bg-red waves-effect btn-xs">Supprimer</button>
+                                        <!-- <button type="button" data-color="red" data-toggle="modal" onclick="load_modal()" class="btn bg-red waves-effect btn-xs">Supprimer</button> -->
                                     </td>
                                 </tr>
                                 {% include 'entree/modal_supprimer.html' %}

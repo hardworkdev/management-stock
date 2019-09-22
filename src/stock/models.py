@@ -42,10 +42,10 @@ class Produit(models.Model):
 
 
 class Entree(models.Model):
-    prix_achat = models.FloatField( verbose_name="Prix D'achat", default=0)
-    qte_entree = models.PositiveIntegerField(default=0)
+    prix_achat = models.FloatField(default=0)
+    qte_entree = models.PositiveIntegerField(default=0, verbose_name="Quantité Entrée")
     produit = models.ForeignKey(Produit, on_delete=models.SET_NULL, null=True)
-    fourniseur = models.ForeignKey(Fourniseur, on_delete=models.SET_NULL, null=True)
+    fourniseur = models.ForeignKey(Fourniseur, on_delete=models.SET_NULL, null=True, verbose_name="Fournisseur")
     sortie_avoir = models.ForeignKey('Sortie', on_delete=models.SET_NULL, null=True)
     deleted = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=datetime.datetime.now)

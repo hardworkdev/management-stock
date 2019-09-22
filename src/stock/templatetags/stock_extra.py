@@ -19,3 +19,13 @@ def get_total_avoir_entree_by_product(context, entree):
               """.format(avoirs, entree.qte_entree ,entree.pk) )
     else:
         return str(entree.qte_entree)
+
+@register.filter(name='msg_entree_deleted_avoir')
+def msg_entree_deleted_avoir(value, arg):
+    if value is None:
+        return "cette entrée est supprimée"
+    else:
+        return value
+    
+
+

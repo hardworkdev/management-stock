@@ -76,10 +76,10 @@
                                     <td>{{ fs.pk }}</td>
                                     <td>{{ fs.created_at|date:'Y-m-d H:i' }}</td>
                                     <td>{{fs.qte_sortie}}</td>
-                                    <td>{{fs.entree.fourniseur}}  </td>
-                                    <td>{{fs.entree.produit.ref}}</td>
-                                    <td>{{fs.entree.produit.marque.nom}}</td>
-                                    <td>{{fs.entree.produit.category.nom}}</td>
+                                    <td>{% if fs.entree %} {{fs.entree.fourniseur}} {% else %} cette entrée est supprimée  {% endif %} </td>
+                                    <td>{% if fs.entree %} {{fs.entree.produit.ref}} {% else %} cette entrée est supprimée  {% endif %}</td>
+                                    <td>{% if fs.entree %} {{fs.entree.produit.marque.nom}} {% else %} cette entrée est supprimée  {% endif %}</td>
+                                    <td>{% if fs.entree %} {{fs.entree.produit.category.nom}} {% else %} cette entrée est supprimée  {% endif %}</td>
                                     
                                 </tr>
                                 {% endfor %}

@@ -2,17 +2,14 @@
 {% block content %}
 <div class="container-fluid">
     <div class="block-header">
-        <h2>
-            FORM VALIDATION
-            <small>Taken from <a href="https://jqueryvalidation.org/" target="_blank">jqueryvalidation.org</a></small>
-        </h2>
+        
     </div>
     <!-- Basic Validation -->
     <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="header">
-                
+                <h2>Modfier Entrée</h2>
                 </div>
                 <div class="body">
                     <form id="form_validation" method="POST" action="{% url 'update_entree' instance.pk %}" novalidate>
@@ -35,7 +32,7 @@
                         
                         {% endfor %}
 
-                        <button class="btn btn-primary waves-effect" type="submit">SUBMIT</button>
+                        <button class="btn btn-primary waves-effect" type="submit">Modifier</button>
                     </form>
                 </div>
             </div>
