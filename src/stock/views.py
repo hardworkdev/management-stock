@@ -457,3 +457,5 @@ def save_avoir_sortie(request, pk_entree):
     return render(request, 'avoir/save_avoir_sortie.html',context)
 
 
+def boon_entree(request):
+    return render(request, "entree/boon_entree.html")

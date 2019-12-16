@@ -30,5 +30,6 @@ urlpatterns = [
     path('retour/entree', list_avoir_sortie , name="list_avoir_sortie_url"), 
     path('retour/sortie', list_avoir_entree , name="list_avoir_entree_url"), 
     path('retour/entree/<int:pk_entree>/create', save_avoir_sortie , name="save_avoir_sortie"), 
+    path('boon_entree', boon_entree , name="boon_entree"), 
 
 ]
